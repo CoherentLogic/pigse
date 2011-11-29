@@ -14,9 +14,24 @@
 
 #ifdef __SDL_API
 typedef Uint8 ECOORD;
+#else
+typedef int ECOORD;
+#endif
+
 typedef char* ESTR;
 typedef long ERESULT;
-#endif
+typedef int EMSG;
+typedef long EMPARAM;
+typedef unsigned long ULONG;
+typedef long EHANDLE;
+
+typedef struct _EQMSG {
+     EMSG msg;
+     EMPARAM p1;
+     EMPARAM p2;
+     EMPARAM p3;
+     ULONG time;
+} EQMSG;
 
 /***
    EPL errors
@@ -44,13 +59,20 @@ typedef long ERESULT;
 /* joystick events */
 #define EPL_JSMOVE 0x09
 
+/* generic events */
+#define EPL_QUIT 0x0A
+
 /***
   EPL functions
 ***/
 
-extern ERESULT EplInit(ECOORD ScrWidth, ECOORD ScrHeight, ECOORD ScrDepth);
-extern void EplError(ESTR ErrMessage);
+/* initialization and errors */
+extern ERESULT EplInit(ECOORD, ECOORD, ECOORD);
+extern void EplError(ESTR);
 
+/* message queue */
+extern EHANDLE EplCreateMessageQueue();
+extern ERESULT EplFetchMessage(EQMSG *);
 
 
 
