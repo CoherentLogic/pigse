@@ -1,0 +1,1 @@
+A portable engine for developing two-dimensional, sprite-based games.
